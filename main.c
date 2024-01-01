@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
 
     char isShowGui = 0;
     char isRebuild = 0;
+    char isAutoUpload = 1;
 
     for (int i = 1; i < argc; i += 2) {
         if (strcmp(argv[i], "-show") == 0) {
@@ -32,6 +33,11 @@ int main(int argc, char *argv[]) {
         }
         if (strcmp(argv[i], "-r") == 0) {
             isRebuild = 1;
+            i -= 1;
+            continue;
+        }
+        if (strcmp(argv[i], "-disup") == 0) {
+            isAutoUpload = 0;
             i -= 1;
             continue;
         }
@@ -94,8 +100,10 @@ int main(int argc, char *argv[]) {
             exit(EXIT_FAILURE);
         }
 
-        sprintf(command, "pyocd flash --target %s %s", BoardType, HexPath);
-        system(command);
+        if (isAutoUpload) {
+            sprintf(command, "pyocd flash --target %s %s", BoardType, HexPath);
+            system(command);
+        }
         return 0;
     } else {
         perror("error");
@@ -155,5 +163,6 @@ void printHelp(void) {
     printf("  -b [BoardType]  : Board type\n");
     printf("  -h [HexPath]    : Path to HEX file\n");
     printf("  -show           : Show UV4.exe GUI\n");
-    printf("  -r              : Enable Rebuild\n");
+    printf("  -r              : Enable rebuild\n");
+    printf("  -disup          : Disable auto upload via pyocd\n");
 }
