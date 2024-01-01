@@ -1,6 +1,6 @@
 
 # UV4 Build and Flash Utility
-This command-line utility automates the build and flashing process for UV4 projects. It supports various options to customize the behavior of the build and flash operations.
+This command-line utility automates the build and flashing process(by pyocd) for UV4 projects. It supports various options to customize the behavior of the build and flash operations.
 
 ## Usage
 ```bash
@@ -20,3 +20,6 @@ To view the help message:
 ```bash
 keil_build.exe help
 ```
+
+## Notice
+You need to install pyocd and configure environment variables
